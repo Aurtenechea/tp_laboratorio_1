@@ -37,7 +37,9 @@ int main()
 
         else
         {
-            if (opcion==7 || opcion ==8) // en las opciones de factorial toma la parte entera del operando1 para pasarselo a la funcion
+            /*en las opciones que usan la funcion factorial() (opciones 7 u 8) redondea y
+            castea el valor a un entero del operando1 para usarlo como parametro de la funcion factorial()*/
+            if (opcion==7 || opcion ==8)
             {
                 operando1Entero  = (int)(operando1+0.5);
             }
