@@ -1,0 +1,176 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
+
+typedef struct {
+
+    char nombre[50];
+    int edad;
+    int estado;
+    int dni;
+
+}EPersona;
+
+#include "funciones.h"
+
+int obtenerEspacioLibre(EPersona lista[]);
+int buscarPorDni(EPersona lista[], int dni);
+int buscarPorDni(EPersona lista[], int dni);
+void mostrarTodasLasPersonas(EPersona lista[]);
+void inicializarGrupoDePersonas(EPersona lista[]);
+void ordenarListaPorNombre(EPersona lista[]);
+
+void hardcodeada(EPersona lista[]);
+
+
+
+int main()
+{
+    char seguir='s';
+    int opcion=0;
+    EPersona grupo[20];
+    int indice=-1, dni=0;
+    char grafico1[20]={" "};
+    char grafico2[20]={" "};
+    char grafico3[20]={" "};
+
+    int cant_menores_18=0, cant_entre_19_35=0, cant_mayores_35=0;
+
+    inicializarGrupoDePersonas(grupo);
+
+    hardcodeada(grupo);
+
+    while(seguir=='s')
+    {
+        printf("1- Agregar persona\n");
+        printf("2- Borrar persona\n");
+        printf("3- Imprimir lista ordenada por nombre\n");
+        printf("4- Imprimir grafico de edades\n\n");
+        printf("5- Salir\n");
+
+        scanf("%d",&opcion);
+
+        system("clear");
+
+        switch(opcion)
+        {
+            case 1:
+                indice=obtenerEspacioLibre(grupo);
+
+                if(indice==-1)
+                {
+                    printf("No hay espacio libre en el sistema.\n");
+                }
+                else
+                {
+                    printf("Ingrese el nombre de la nueva persona.");
+                    fflush(stdin);
+                    gets(grupo[indice].nombre);
+
+                    printf("Ingrese la edad de la nueva persona.");
+                    fflush(stdin);
+                    scanf("%d", &grupo[indice].edad);
+
+                    printf("Ingrese el dni de la nueva persona.");
+                    fflush(stdin);
+                    scanf("%d", &grupo[indice].dni);
+
+                    grupo[indice].estado=1;
+                }
+                break;
+
+            case 2:
+                printf("Ingrese el dni de la persona a eliminar");
+                fflush(stdin);
+                scanf("%d", &dni);
+
+                indice=buscarPorDni(grupo,dni);
+
+                if (indice==-1)
+                {
+                    printf("La persona con ese dni no se encuentra en el sistema.\n\n");
+                }
+                else
+                {
+                    grupo[indice].estado=0;
+                }
+
+                break;
+
+            case 3:
+
+                imprimirListaOrdenadaPorNombre(grupo);
+                break;
+
+            case 4:
+                cant_entre_19_35=0;
+                cant_mayores_35=0;
+                cant_menores_18=0;
+
+                for(int i=0;i<20;i++)
+                {
+                    grafico1[i]=32;
+                    grafico2[i]=32;
+                    grafico3[i]=32;
+                }
+
+                for(int i=0;i<20;i++)
+                {
+
+
+                    if(grupo[i].edad<18 && grupo[i].estado==1)
+                    {
+                        cant_menores_18++;
+                    }
+                    else if( (grupo[i].edad>=19 && grupo[i].edad<=35) && grupo[i].estado==1)
+                    {
+                        cant_entre_19_35++;
+                    }
+                    else if (grupo[i].edad>35 && grupo[i].estado==1)
+                    {
+                        cant_mayores_35++;
+                    }
+
+                }
+
+                printf("Menores a 18 %d\n", cant_menores_18 );
+                printf("Entre 19 y 35 %d\n", cant_entre_19_35 );
+                printf("Mayores a 35 %d\n", cant_mayores_35);
+
+                for(int i=0;i<cant_menores_18;i++)
+                {
+                    grafico1[i]=42;
+                }
+                 for(int i=0;i<cant_entre_19_35;i++)
+                {
+                    grafico2[i]=42;
+                }
+                 for(int i=0;i<cant_mayores_35;i++)
+                {
+                    grafico3[i]=42;
+                }
+
+
+                for (int i=19; i>=0; i--)
+                {
+                    printf(" %c\t\t%c\t\t%c\n",grafico1[i],grafico2[i],grafico3[i]);
+                }
+                printf("<18      entre_19_y_35  mayores_a_35\n");
+
+                break;
+
+            case 5:
+                seguir = 'n';
+                break;
+
+            default:
+                printf("La opcion ingresada no es valida.\n");
+                break;
+        }
+   }
+    return 0;
+}
+
+
+
+
