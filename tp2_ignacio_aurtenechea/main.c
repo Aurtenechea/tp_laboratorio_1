@@ -1,30 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-
-typedef struct {
-
-    char nombre[50];
-    int edad;
-    int estado;
-    int dni;
-
-}EPersona;
-
-#include "funciones.h"  // la inclui en este lugar porque sino no compilaba, no reconocia el tipo de dato EPersona en las funciones.
-
-int obtenerEspacioLibre(EPersona lista[]);
-int buscarPorDni(EPersona lista[], int dni);
-int buscarPorDni(EPersona lista[], int dni);
-void mostrarTodasLasPersonas(EPersona lista[]);
-void inicializarGrupoDePersonas(EPersona lista[]);
-void ordenarListaPorNombre(EPersona lista[]);
-int sistemaNoVacio(EPersona lista[]);
-void imprimirGrafico(EPersona grupo[]);
-
-void hardcodeada(EPersona lista[]);
-
+#include "funciones.h"
+/*
+al compilar el compilador devuelve warning: incompatible implicit declaration of built-in function
+de casi todas, sino todas las funciones. Creo que los ficheros con funciones y las directivas #include estan
+correctos. O por lo menos como nos enseñaron.
+O por ahí es por las directivas #ifndef FUNCIONES_H_INCLUDED
+#define FUNCIONES_H_INCLUDED que no se como funcionan.
+*/
 
 int main()
 {
